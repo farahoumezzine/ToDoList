@@ -1,8 +1,22 @@
 [
-    {"id":1, "name": "clean my room" ,"complete":false},
-    {"id":2, "name": "prepare Breakfast" ,"complete":false},
-    {"id":3, "name": "walk the dog" ,"complete":false},
-    {"id":4, "name": "go to the gym" ,"complete":false}
-
-
+    {
+        "id": 1,
+        "name": "clean my room",
+        "complete": false
+    },
+    {
+        "id": 2,
+        "name": "prepare Breakfast",
+        "complete": false
+    },
+    {
+        "id": 3,
+        "name": "walk the dog",
+        "complete": true
+    },
+    {
+        "id": 4,
+        "name": "go to the gym",
+        "complete": false
+    }
 ]

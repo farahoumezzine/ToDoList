@@ -37,13 +37,19 @@ fs.readFile('./list/todo.json','utf-8',(err,data)=>{
         return response.status(500).send("Sorry, something went wrong.")
 
     }
-    const todo=JSON.parse(data)
+    let todo=JSON.parse(data)
     const IndexId = findTodoById(todo,id)
 
     if ( IndexId === -1){
         return response.status(440).send("Sorry, not found.")
     } 
-    return response.json(todo[IndexId])
+    todo[IndexId].complete = true
+
+    fs.writeFile('./list/todo.json',JSON.stringify(todo) ,()=>{
+
+        return response.send({'status':'ok'})
+    }
+    )
 })
 
 })
