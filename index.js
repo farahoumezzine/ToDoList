@@ -1,13 +1,14 @@
 
-const express=require("express")
-const fs =require ("fs")
+const express=require('express')
+const fs =require ('fs')
 
 const app =express()
 
 app.get('/', (request,response) =>{
-    return response.send("hello world")
+    return response.send("Hello world")
 })
-app.get('/todo.json',(request,response) => {
+
+app.get('/todo',(request,response) => {
 fs.readFile('./list/todo.json','utf-8',(err,data) =>{
     if (err){
         return response.status(500).send("Sorry, something went wrong.")
@@ -17,20 +18,21 @@ fs.readFile('./list/todo.json','utf-8',(err,data) =>{
 })
 })
 
-app.put('/todo.json/:id/complete' , (request,response) =>{
+app.put('/todo/:id/complete' ,(request,response) =>{
 
     const id =request.params.id
 
     const findTodoById=(todo,id)=>{
-        for(let i=0; i<todo.length; i++){
-            if(todo[i].id===id){
+        for(let i=0; i<todo.length ; i++){
+            if(todo[i].id===parseInt(id)){
                 return i
             }
         }
         return -1 
     }
 
-fs.readFileSync('./list/todo.json','utf-8',(err,data)=>{
+
+fs.readFile('./list/todo.json','utf-8',(err,data)=>{
     if (err){
         return response.status(500).send("Sorry, something went wrong.")
 
@@ -38,6 +40,9 @@ fs.readFileSync('./list/todo.json','utf-8',(err,data)=>{
     const todo=JSON.parse(data)
     const IndexId = findTodoById(todo,id)
 
+    if ( IndexId === -1){
+        return response.status(440).send("Sorry, not found.")
+    } 
     return response.json(todo[IndexId])
 })
 
