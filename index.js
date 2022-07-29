@@ -9,12 +9,22 @@ app.get('/', (request,response) =>{
 })
 
 app.get('/todo',(request,response) => {
+
+const showpending =request.query.showpending
+
 fs.readFile('./list/todo.json','utf-8',(err,data) =>{
     if (err){
         return response.status(500).send("Sorry, something went wrong.")
     }
         const todo =JSON.parse(data)
-        return response.json({todo : todo})
+        if (showpending !== "1"){
+            return response.json({todo : todo})
+
+        }else {
+            return response.json({todo : todo.filter(a =>{return a.complete ===false})
+                
+                 })
+        }
 })
 })
 
